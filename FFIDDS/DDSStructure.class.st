@@ -6,6 +6,7 @@ Class {
 	#name : 'DDSStructure',
 	#superclass : 'FFIStructure',
 	#pools : [
+		'DDSConstantsPool',
 		'DDSPool'
 	],
 	#category : 'FFIDDS',

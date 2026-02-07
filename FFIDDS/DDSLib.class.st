@@ -37,11 +37,17 @@ Class {
 		'ddsInfo'
 	],
 	#pools : [
+		'DDSConstantsPool',
 		'DDSPool'
 	],
 	#category : 'FFIDDS',
 	#package : 'FFIDDS'
 }
+
+{ #category : 'as yet unclassified' }
+DDSLib >> accessAuxPools [
+	^ RETURN_CARD_COUNT, Char80 
+]
 
 { #category : 'as yet unclassified' }
 DDSLib >> getDDSInfo [

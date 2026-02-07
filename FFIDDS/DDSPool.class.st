@@ -7,7 +7,8 @@ Class {
 	#classVars : [
 		'Char10',
 		'Char1024',
-		'Char128'
+		'Char128',
+		'Char80'
 	],
 	#category : 'FFIDDS',
 	#package : 'FFIDDS'
@@ -18,6 +19,7 @@ DDSPool class >> initialize [
 
 
 	Char10 := (FFIArray newArrayTypeOf: #char size: 10).
+	Char80 := (FFIArray newArrayTypeOf: #char size: 80).
 	Char128 := (FFIArray newArrayTypeOf: #char size: 128).
 	Char1024 := (FFIArray newArrayTypeOf: #char size: 1024).
 
