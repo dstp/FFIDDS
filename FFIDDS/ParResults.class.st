@@ -37,6 +37,35 @@ char parContractsString[2][128];
 
 ]
 
+{ #category : 'converting' }
+ParResults >> asString [
+	" 
+ 	parResults	char parScore[2][16];First index is NS/EW.  Side encoding.
+							char parContractsString[2][128];	First index is NS/EW.  Side encoding.
+	"
+
+	| score contract |
+	score := self parScore asArray groupsOf: 16. " aByteArray size: 32 "
+	contract := self parContractString asArray groupsOf: 128. "aByteArray size: 256 "
+	String streamContents: [ :aStream |
+			aStream
+				nextPutAll: 'Scores    : ';
+				nextPutAll:
+					(('' join: (score first select: [ :e | e ~= Character null ]))
+						 padRightTo: 40);
+				nextPutAll:
+					('' join: (score last select: [ :e | e ~= Character null ]));
+				cr;
+				nextPutAll: 'Contracts : ';
+				nextPutAll:
+					(('' join: (contract first select: [ :e | e ~= Character null ]))
+						 padRightTo: 40);
+				nextPutAll:
+					('' join: (contract last select: [ :e | e ~= Character null ]));
+				cr.
+			^ aStream contents ]
+]
+
 { #category : 'accessing - structure variables' }
 ParResults >> parContractString [
 	"This method was automatically generated"

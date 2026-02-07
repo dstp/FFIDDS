@@ -28,6 +28,13 @@ TableDealPBN class >> fieldsDesc [
 	^ #( Char80 tableDealPBN)
 ]
 
+{ #category : 'converting' }
+TableDealPBN >> asString [
+	"
+	"
+	^ parResult asString , tableResult asString
+]
+
 { #category : 'ffi' }
 TableDealPBN >> calcParPBN [
 	" 
@@ -54,6 +61,18 @@ TableDealPBN >> loadATableDealPBN: aDealPBN [
 
 ]
 
+{ #category : 'accessing' }
+TableDealPBN >> parResult [
+
+	^ parResult
+]
+
+{ #category : 'accessing' }
+TableDealPBN >> parResult: anObject [
+
+	parResult := anObject
+]
+
 { #category : 'accessing - structure variables' }
 TableDealPBN >> tableDealPBN [
 	"This method was automatically generated"
@@ -64,4 +83,28 @@ TableDealPBN >> tableDealPBN [
 TableDealPBN >> tableDealPBN: anObject [
 	"This method was automatically generated"
 	handle replaceFrom: OFFSET_TABLEDEALPBN to: OFFSET_TABLEDEALPBN + 79 with: anObject getHandle startingAt: 1
+]
+
+{ #category : 'accessing' }
+TableDealPBN >> tableResult [
+
+	^ tableResult
+]
+
+{ #category : 'accessing' }
+TableDealPBN >> tableResult: anObject [
+
+	tableResult := anObject
+]
+
+{ #category : 'accessing' }
+TableDealPBN >> vul [
+
+	^ vul
+]
+
+{ #category : 'accessing' }
+TableDealPBN >> vul: anObject [
+
+	vul := anObject
 ]
