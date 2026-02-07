@@ -52,12 +52,6 @@ DDSLib >> getDDSInfo [
 	
 ]
 
-{ #category : 'tests' }
-DDSLib >> testIceberg [
-"
-"
-]
-
 { #category : 'accessing - platform' }
 DDSLib >> unix64LibraryName [
 
