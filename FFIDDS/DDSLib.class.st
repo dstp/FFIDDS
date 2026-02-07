@@ -37,7 +37,6 @@ Class {
 		'ddsInfo'
 	],
 	#pools : [
-		'DDSConstantsPool',
 		'DDSPool'
 	],
 	#category : 'FFIDDS',

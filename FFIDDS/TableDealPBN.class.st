@@ -8,6 +8,11 @@ struct ddTableDealPBN
 Class {
 	#name : 'TableDealPBN',
 	#superclass : 'DDSStructure',
+	#instVars : [
+		'tableResult',
+		'parResult',
+		'vul'
+	],
 	#classVars : [
 		'OFFSET_TABLEDEALPBN'
 	],
@@ -21,6 +26,22 @@ TableDealPBN class >> fieldsDesc [
 	" self rebuildFieldAccessors."
 
 	^ #( Char80 tableDealPBN)
+]
+
+{ #category : 'as yet unclassified' }
+TableDealPBN >> calcParPBNTableDealPBN [
+	" 
+EXTERN_C DLLEXPORT int STDCALL CalcParPBN(
+  struct ddTableDealPBN tableDealPBN,
+  struct ddTableResults * tablep,
+  int vulnerable,
+  struct parResults * presp);
+	"
+
+	tableResult := TableResults new.
+	parResult :=ParResults new. 
+	vul := 0.
+	^ self ffiCall: #(int CalcParPBN #( TableDealPBN self, TableResults tableResult, int vul, ParResults parResult )).
 ]
 
 { #category : 'as yet unclassified' }
