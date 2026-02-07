@@ -115,7 +115,7 @@ DDSInfo >> constructor: anObject [
 	handle signedLongAt: OFFSET_CONSTRUCTOR put: anObject
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'ffi-calls' }
 DDSInfo >> getDDSInfo [
 	"
 	"

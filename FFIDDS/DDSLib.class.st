@@ -43,18 +43,18 @@ Class {
 	#package : 'FFIDDS'
 }
 
-{ #category : 'as yet unclassified' }
-DDSLib >> accessAuxPools [
-	^ RETURN_CARD_COUNT, Char80 
-]
-
-{ #category : 'as yet unclassified' }
+{ #category : 'ffi-calls' }
 DDSLib >> getDDSInfo [
 	"
 	"
 	ddsInfo := DDSInfo new .
 	^ self ffiCall: #(void GetDDSInfo( DDSInfo * ddsInfo )).
 	
+]
+
+{ #category : 'testing' }
+DDSLib >> testAccessPools [
+	^ RETURN_CARD_COUNT, Char80 
 ]
 
 { #category : 'accessing - platform' }
