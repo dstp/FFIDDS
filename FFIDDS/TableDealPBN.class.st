@@ -29,7 +29,7 @@ TableDealPBN class >> fieldsDesc [
 ]
 
 { #category : 'as yet unclassified' }
-TableDealPBN >> calcParPBNTableDealPBN [
+TableDealPBN >> calcParPBN [
 	" 
 EXTERN_C DLLEXPORT int STDCALL CalcParPBN(
   struct ddTableDealPBN tableDealPBN,
@@ -41,7 +41,7 @@ EXTERN_C DLLEXPORT int STDCALL CalcParPBN(
 	tableResult := TableResults new.
 	parResult :=ParResults new. 
 	vul := 0.
-	^ self ffiCall: #(int CalcParPBN #( TableDealPBN self, TableResults tableResult, int vul, ParResults parResult )).
+	^ self ffiCall: #(int CalcParPBN #( TableDealPBN self, TableResults * tableResult, int vul, ParResults * parResult )).
 ]
 
 { #category : 'as yet unclassified' }
