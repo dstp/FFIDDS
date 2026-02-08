@@ -36,6 +36,62 @@ TableDealPBN >> asString [
 	^ parResult asString , tableResult asString
 ]
 
+{ #category : 'converting' }
+TableDealPBN >> asStringwithDeal [
+	"
+	"
+	| str dealer mains north east south west lstIdx suit parAr |
+	parAr := self asString splitOn: Character cr.
+	suit := #('s: ' 'h: ' 'd: ' 'c: ').
+	str := WriteStream with: String new.
+	dealer := (self tableDealPBN asArray copyFrom: 1 to: 1) first.
+	mains := ((self tableDealPBN asArray copyFrom: 3 to: self tableDealPBN size) splitOn: ' ') collect: [ :m | m splitOn: '.' ].
+	lstIdx := #(#(1 2 3 4) #(4 1 2 3) #(3 4 1 2) #(2 3 4 1)) at: (#('N' 'E' 'S' 'W') indexOf: dealer asString).
+	north := mains at: (lstIdx at: 1).
+	east := mains at: (lstIdx at: 2).
+	south := mains at: (lstIdx at: 3).
+	west := mains at: (lstIdx at: 4).
+	1 to: 12 do: [ :l | 
+		l < 7
+			ifTrue: [ str
+					nextPutAll: (parAr at: l);
+					tab ]
+			ifFalse: [ str
+					tab;
+					tab;
+					tab;
+					tab;
+					tab;
+					tab ].
+		l < 5
+			ifTrue: [ str
+					tab;
+					tab;
+					tab;
+					nextPutAll: (suit at: l);
+					nextPutAll: (north at: l);
+					cr ]
+			ifFalse: [ l > 8
+					ifTrue: [ str
+							tab;
+							tab;
+							tab;
+							nextPutAll: (suit at: l - 8);
+							nextPutAll: (south at: l - 8);
+							cr ]
+					ifFalse: [ str
+							nextPutAll: (suit at: l - 4);
+							nextPutAll: ((west at: l - 4) padRightTo: 15).
+						str
+							tab;
+							tab;
+							tab;
+							nextPutAll: (suit at: l - 4);
+							nextPutAll: (east at: l - 4);
+							cr ] ] ].
+	^ str contents
+]
+
 { #category : 'ffi' }
 TableDealPBN >> calcParPBN [
 	" 

@@ -8,6 +8,9 @@ struct ddTableResults
 Class {
 	#name : 'TableResults',
 	#superclass : 'DDSStructure',
+	#instVars : [
+		'pbn'
+	],
 	#classVars : [
 		'OFFSET_TABLERESULTS'
 	],
@@ -57,6 +60,18 @@ TableResults >> asString [
 						cr.
 					i := i + 1 ].
 			^ aStream contents ]
+]
+
+{ #category : 'accessing' }
+TableResults >> pbn [
+
+	^ pbn
+]
+
+{ #category : 'accessing' }
+TableResults >> pbn: anObject [
+
+	pbn := anObject
 ]
 
 { #category : 'accessing - structure variables' }
