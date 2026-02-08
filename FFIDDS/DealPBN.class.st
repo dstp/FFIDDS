@@ -1,3 +1,12 @@
+"
+""{""
+  int trump;
+  int first;
+  int currentTrickSuit[3];
+  int currentTrickRank[3];
+  unsigned int remainCards[DDS_HANDS][DDS_SUITS];
+""}""
+"
 Class {
 	#name : 'DealPBN',
 	#superclass : 'DDSStructure',
@@ -6,7 +15,9 @@ Class {
 		'target',
 		'solutions',
 		'mode',
-		'thrId'
+		'thrId',
+		'playTracePBN',
+		'solvedPlay'
 	],
 	#classVars : [
 		'OFFSET_CURRENTTRICKRANK',
@@ -32,6 +43,18 @@ DealPBN class >> fieldsDesc [
 	" self rebuildFieldAccessors."
 	^ #( int trump #';' int first #';' Int_3 currentTrickSuit #';' Int_3 currentTrickRank #';' Char80 remainCards)
 
+]
+
+{ #category : 'ffi' }
+DealPBN >> analysePlayPBN [
+	" 
+EXTERN_C DLLEXPORT int STDCALL AnalysePlayPBN(
+  struct dealPBN dlPBN,
+  struct playTracePBN playPBN,
+  struct solvedPlay * solvedp,
+  int thrId);
+"
+	^ self ffiCall: #(int AnalysePlayPBN( DealPBN self, PlayTracePBN playTracePBN, SolvedPlay * solvedPlay,  int thrId)).
 ]
 
 { #category : 'accessing - structure variables' }
@@ -94,6 +117,18 @@ DealPBN >> mode: anObject [
 	mode := anObject
 ]
 
+{ #category : 'accessing' }
+DealPBN >> playTracePBN [
+
+	^ playTracePBN
+]
+
+{ #category : 'accessing' }
+DealPBN >> playTracePBN: anObject [
+
+	playTracePBN := anObject
+]
+
 { #category : 'accessing - structure variables' }
 DealPBN >> remainCards [
 	"This method was automatically generated"
@@ -132,6 +167,18 @@ EXTERN_C DLLEXPORT int STDCALL SolveBoardPBN(
 	"
 	futureTricks := FutureTricks new.
 	^ self ffiCall: #(int SolveBoardPBN #( DealPBN self, int target, int solutions, int mode, FutureTricks * futureTricks , int thrId )).
+]
+
+{ #category : 'accessing' }
+DealPBN >> solvedPlay [
+
+	^ solvedPlay
+]
+
+{ #category : 'accessing' }
+DealPBN >> solvedPlay: anObject [
+
+	solvedPlay := anObject
 ]
 
 { #category : 'accessing' }
