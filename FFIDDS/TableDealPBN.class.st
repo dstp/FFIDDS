@@ -11,7 +11,11 @@ Class {
 	#instVars : [
 		'tableResult',
 		'parResult',
-		'vul'
+		'vul',
+		'futureTricks',
+		'target',
+		'solutions',
+		'mode'
 	],
 	#classVars : [
 		'OFFSET_TABLEDEALPBN'
@@ -52,6 +56,18 @@ EXTERN_C DLLEXPORT int STDCALL CalcParPBN(
 ]
 
 { #category : 'accessing' }
+TableDealPBN >> futureTricks [
+
+	^ futureTricks
+]
+
+{ #category : 'accessing' }
+TableDealPBN >> futureTricks: anObject [
+
+	futureTricks := anObject
+]
+
+{ #category : 'accessing' }
 TableDealPBN >> loadATableDealPBN: aDealPBN [
 	" Je charge ma donne et je calcule le par (variables parResult et tabResul)
 		aDealPBN de ce type 'N:QJ6.K652.J85.T98 873.J97.AT764.Q4 5.T83.KQ92.A7652 AKT942.AQ4.3.KJ3'
@@ -59,6 +75,18 @@ TableDealPBN >> loadATableDealPBN: aDealPBN [
 
 	self tableDealPBN:  aDealPBN asPBN.
 
+]
+
+{ #category : 'accessing' }
+TableDealPBN >> mode [
+
+	^ mode
+]
+
+{ #category : 'accessing' }
+TableDealPBN >> mode: anObject [
+
+	mode := anObject
 ]
 
 { #category : 'accessing' }
@@ -71,6 +99,34 @@ TableDealPBN >> parResult [
 TableDealPBN >> parResult: anObject [
 
 	parResult := anObject
+]
+
+{ #category : 'accessing' }
+TableDealPBN >> solutions [
+
+	^ solutions
+]
+
+{ #category : 'accessing' }
+TableDealPBN >> solutions: anObject [
+
+	solutions := anObject
+]
+
+{ #category : 'ffi' }
+TableDealPBN >> solveBoardPBN [
+	" 
+EXTERN_C DLLEXPORT int STDCALL SolveBoardPBN(
+  struct dealPBN dlpbn,
+  int target,
+  int solutions,
+  int mode,
+  struct futureTricks * futp,
+  int thrId);
+
+	"
+	futureTricks := FutureTricks new.
+	^ self ffiCall: #(int SolveBoardPBN #( TableDealPBN self, int target, int solutions, int mode, FutureTricks * futureTricks , 0 )).
 ]
 
 { #category : 'accessing - structure variables' }
@@ -95,6 +151,18 @@ TableDealPBN >> tableResult [
 TableDealPBN >> tableResult: anObject [
 
 	tableResult := anObject
+]
+
+{ #category : 'accessing' }
+TableDealPBN >> target [
+
+	^ target
+]
+
+{ #category : 'accessing' }
+TableDealPBN >> target: anObject [
+
+	target := anObject
 ]
 
 { #category : 'accessing' }
