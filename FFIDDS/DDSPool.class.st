@@ -12,7 +12,8 @@ Class {
 		'Char32',
 		'Char80',
 		'IntTableResults',
-		'Int_13'
+		'Int_13',
+		'Int_3'
 	],
 	#pools : [
 		'DDSConstantsPool'
@@ -32,6 +33,7 @@ DDSPool class >> initialize [
 	Char256 := FFIArray newArrayTypeOf: #char size: 2 * 128.
 	Char1024 := FFIArray newArrayTypeOf: #char size: 1024.
 	Int_13  := FFIArray  newArrayTypeOf: #int size: 13. 
+	Int_3  := FFIArray  newArrayTypeOf: #int size: 3. 
 	IntTableResults := FFIArray ofType: 'int' size: DDS_STRAINS * DDS_HANDS.
 
 ]
