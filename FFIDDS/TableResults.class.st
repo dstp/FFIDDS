@@ -59,6 +59,64 @@ TableResults >> asString [
 			^ aStream contents ]
 ]
 
+{ #category : 'converting' }
+TableResults >> asStringTest [
+	"
+	"
+	| str |
+	str := WriteStream with: String new.
+	(#('NESW' 'ESWN' 'SWNE' 'WNES') detect: [ :s | s first = $N ])
+		inject: str
+		into: [ :stream :c | 
+			stream
+				tab;
+				nextPut: c;
+				yourself ].
+	str
+		tab;
+		cr.
+	(self tableResults asArray groupsOf: 4 atATimeCollect: [ :l | l ])
+		keysAndValuesDo: [ :i :l | 
+			str
+				nextPutAll: (#('S' 'H' 'D' 'C' 'NT') at: i);
+				tab.
+			l
+				do: [ :c | 
+					str
+						nextPutAll: c asString;
+						tab ].
+			str cr ].
+	^ str contents
+]
+
+{ #category : 'converting' }
+TableResults >> asStringTest: aDeal [
+	"
+	"
+	| str  |
+	
+	str := WriteStream with: String new.
+	(#(' NESW' ' ESWN' ' SWNE' ' WNES') detect: [ :s | (s at: 2)  = aDeal first ])
+		inject: str
+		into: [ :stream :c | 
+			stream
+				nextPutAll: (c asString padRightTo: 3);
+				yourself ].
+	str
+		cr.
+	(self tableResults asArray groupsOf: 4 atATimeCollect: [ :l | l ])
+		keysAndValuesDo: [ :i :l | 
+			str
+				nextPutAll: ((#('S' 'H' 'D' 'C' 'NT') at: i) padRightTo: 3).
+			l
+				do: [ :c | 
+					str
+						nextPutAll: (c asString padRightTo: 3)
+ 				].
+			str cr ].
+	^ str contents
+]
+
 { #category : 'accessing - structure variables' }
 TableResults >> tableResults [
 	"This method was automatically generated"
