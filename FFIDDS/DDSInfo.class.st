@@ -62,8 +62,9 @@ Class {
 		'OFFSET_THREADSIZES',
 		'OFFSET_VERSIONSTRING'
 	],
-	#category : 'FFIDDS',
-	#package : 'FFIDDS'
+	#category : 'FFIDDS-DDS',
+	#package : 'FFIDDS',
+	#tag : 'DDS'
 }
 
 { #category : 'field definition' }

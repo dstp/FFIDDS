@@ -16,8 +16,9 @@ Class {
 		'OFFSET_PARCONTRACTSTRING',
 		'OFFSET_PARSCORE'
 	],
-	#category : 'FFIDDS',
-	#package : 'FFIDDS'
+	#category : 'FFIDDS-DDS',
+	#package : 'FFIDDS',
+	#tag : 'DDS'
 }
 
 { #category : 'field definition' }

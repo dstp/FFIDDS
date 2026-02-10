@@ -12,8 +12,9 @@ Class {
 		'OFFSET_CARDS',
 		'OFFSET_NUMBER'
 	],
-	#category : 'FFIDDS',
-	#package : 'FFIDDS'
+	#category : 'FFIDDS-DDS',
+	#package : 'FFIDDS',
+	#tag : 'DDS'
 }
 
 { #category : 'field definition' }

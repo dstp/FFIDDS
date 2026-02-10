@@ -8,11 +8,15 @@ struct ddTableResults
 Class {
 	#name : 'TableResults',
 	#superclass : 'DDSStructure',
+	#instVars : [
+		'owner'
+	],
 	#classVars : [
 		'OFFSET_TABLERESULTS'
 	],
-	#category : 'FFIDDS',
-	#package : 'FFIDDS'
+	#category : 'FFIDDS-DDS',
+	#package : 'FFIDDS',
+	#tag : 'DDS'
 }
 
 { #category : 'field definition' }
@@ -28,13 +32,13 @@ int resTable[DDSSTRAINS][DDSHANDS];
 ]
 
 { #category : 'converting' }
-TableResults >> asStringTest: aDeal [
+TableResults >> asString [
 	"
 	"
 	| str  |
 	
 	str := WriteStream with: String new.
-	(#(' NESW' ' ESWN' ' SWNE' ' WNES') detect: [ :s | (s at: 2)  = aDeal first ])
+	(#(' NESW' ' ESWN' ' SWNE' ' WNES') detect: [ :s | (s at: 2)  = self owner dealer ])
 		inject: str
 		into: [ :stream :c | 
 			stream
@@ -53,6 +57,18 @@ TableResults >> asStringTest: aDeal [
  				].
 			str cr ].
 	^ str contents
+]
+
+{ #category : 'accessing' }
+TableResults >> owner [
+
+	^ owner ifNil: [ owner := nil ]
+]
+
+{ #category : 'accessing' }
+TableResults >> owner: anObject [
+
+	owner := anObject
 ]
 
 { #category : 'accessing - structure variables' }

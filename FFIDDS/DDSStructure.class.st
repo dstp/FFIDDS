@@ -8,8 +8,9 @@ Class {
 	#pools : [
 		'DDSPool'
 	],
-	#category : 'FFIDDS',
-	#package : 'FFIDDS'
+	#category : 'FFIDDS-DDS',
+	#package : 'FFIDDS',
+	#tag : 'DDS'
 }
 
 { #category : 'accessing' }

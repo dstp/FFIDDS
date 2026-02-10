@@ -20,8 +20,9 @@ Class {
 	#pools : [
 		'DDSConstantsPool'
 	],
-	#category : 'FFIDDS',
-	#package : 'FFIDDS'
+	#category : 'FFIDDS-DDS',
+	#package : 'FFIDDS',
+	#tag : 'DDS'
 }
 
 { #category : 'class initialization' }

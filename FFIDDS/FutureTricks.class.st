@@ -20,8 +20,9 @@ Class {
 		'OFFSET_SCORE',
 		'OFFSET_SUIT'
 	],
-	#category : 'FFIDDS',
-	#package : 'FFIDDS'
+	#category : 'FFIDDS-DDS',
+	#package : 'FFIDDS',
+	#tag : 'DDS'
 }
 
 { #category : 'field definition' }

@@ -63,8 +63,9 @@ Class {
 		'TEXT_UNKNOWN_FAULT',
 		'TEXT_ZERO_CARDS'
 	],
-	#category : 'FFIDDS',
-	#package : 'FFIDDS'
+	#category : 'FFIDDS-DDS',
+	#package : 'FFIDDS',
+	#tag : 'DDS'
 }
 
 { #category : 'class initialization' }
