@@ -116,10 +116,7 @@ TableDealPBN >> createHands [
 	dealer := self asByteString copyFrom: 1 to: 1.
 	mains := ((self asByteString copyFrom: 3 to: self asByteString size) splitOn: ' ') collect: [ :m | m splitOn: '.' ].
 	lstIdx := #(#(1 2 3 4) #(4 1 2 3) #(3 4 1 2) #(2 3 4 1)) at: (#('N' 'E' 'S' 'W') indexOf: dealer).
-	North uniqueInstance index: (lstIdx at: 1).
-	East suitsIndex: (lstIdx at: 2).
-	South suitsIndex: (lstIdx at: 3).
-	West suitsIndex: (lstIdx at: 4).
+
 ]
 
 { #category : 'accessing' }
