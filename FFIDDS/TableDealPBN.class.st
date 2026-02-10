@@ -9,11 +9,11 @@ Class {
 	#name : 'TableDealPBN',
 	#superclass : 'DDSStructure',
 	#instVars : [
-		'tableResult',
-		'parResult',
 		'vul',
 		'futureTricks',
-		'deal'
+		'deal',
+		'parResults',
+		'tableResults'
 	],
 	#classVars : [
 		'OFFSET_TABLEDEALPBN'
@@ -34,13 +34,13 @@ TableDealPBN class >> fieldsDesc [
 TableDealPBN >> asString [
 	"
 	"
-	^ parResult asString , tableResult asString
+	^ parResults asString , tableResults asString
 ]
 
 { #category : 'converting' }
 TableDealPBN >> asStringWithDeal [
 	| str dealer mains north east south west lstIdx suit parAr nSpaces |
-	parAr := (tableResult asStringTest: deal) splitOn: Character cr.
+	parAr := (tableResults asStringTest: deal) splitOn: Character cr.
 	nSpaces := 21.
 	suit := #('s: ' 'h: ' 'd: ' 'c: ').
 	str := WriteStream with: String new.
@@ -84,7 +84,7 @@ TableDealPBN >> asStringWithDeal [
 									nextPutAll: (south at: l - 8);
 									cr ] ] ] ].
 
-	^ str contents
+	^ str contents, self parResults asString 
 ]
 
 { #category : 'ffi' }
@@ -97,10 +97,10 @@ EXTERN_C DLLEXPORT int STDCALL CalcParPBN(
   struct parResults * presp);
 	"
 
-	tableResult := TableResults new.
-	parResult := ParResults new. 
+	"self tableResults: TableResults new.
+	self parResults: ParResults new. "
 	vul := 0.
-	^ self ffiCall: #(int CalcParPBN #( TableDealPBN self, TableResults * tableResult, int vul, ParResults * parResult )).
+	^ self ffiCall: #(int CalcParPBN #( TableDealPBN self, TableResults * tableResults, int vul, ParResults * parResults )).
 ]
 
 { #category : 'accessing' }
@@ -133,6 +133,10 @@ TableDealPBN >> loadATableDealPBN: aDealPBN [
 aDealPBN de ce type 'N:QJ6.K652.J85.T98 873.J97.AT764.Q4 5.T83.KQ92.A7652 AKT942.AQ4.3.KJ3'
 	"
 		self deal: aDealPBN .
+		self tableResults: TableResults new.
+		self parResults: ParResults new. 
+		self futureTricks: FutureTricks new.
+		self vul: 0.
 		^ self tableDealPBN: (Char80 new
 		  replaceFrom: 1
 		  to: (aDealPBN size min: 80)
@@ -141,15 +145,15 @@ aDealPBN de ce type 'N:QJ6.K652.J85.T98 873.J97.AT764.Q4 5.T83.KQ92.A7652 AKT942
 ]
 
 { #category : 'accessing' }
-TableDealPBN >> parResult [
+TableDealPBN >> parResults [
 
-	^ parResult
+	^ parResults
 ]
 
 { #category : 'accessing' }
-TableDealPBN >> parResult: anObject [
+TableDealPBN >> parResults: anObject [
 
-	parResult := anObject
+	parResults := anObject
 ]
 
 { #category : 'accessing - structure variables' }
@@ -165,15 +169,15 @@ TableDealPBN >> tableDealPBN: anObject [
 ]
 
 { #category : 'accessing' }
-TableDealPBN >> tableResult [
+TableDealPBN >> tableResults [
 
-	^ tableResult
+	^ tableResults
 ]
 
 { #category : 'accessing' }
-TableDealPBN >> tableResult: anObject [
+TableDealPBN >> tableResults: anObject [
 
-	tableResult := anObject
+	tableResults := anObject
 ]
 
 { #category : 'accessing' }
