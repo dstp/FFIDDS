@@ -6,11 +6,22 @@ Class {
 	#superclass : 'Object',
 	#instVars : [
 		'suits',
-		'name'
+		'name',
+		'index'
+	],
+	#classInstVars : [
+		'uniqueInstance'
 	],
 	#category : 'Bridge-cards',
 	#package : 'Bridge-cards'
 }
+
+{ #category : 'accessing' }
+Hand class >> uniqueInstance [
+	self = Hand
+		ifTrue: [ self error: 'I''m an abstract class, use one of my children.' ].
+	^ uniqueInstance ifNil: [ uniqueInstance := super new ]
+]
 
 { #category : 'conversion' }
 Hand >> asString [ 
@@ -64,6 +75,18 @@ Hand >> hearts [
 { #category : 'accessing' }
 Hand >> hearts: anObject [
 	self hearts cards: anObject
+]
+
+{ #category : 'accessing' }
+Hand >> index [
+
+	^ index
+]
+
+{ #category : 'accessing' }
+Hand >> index: anObject [
+
+	index := anObject
 ]
 
 { #category : 'accessing' }
@@ -139,4 +162,10 @@ Hand >> suits [
 				with: (Suit new suit: 'h')
 				with: (Suit new suit: 'd')
 				with: (Suit new suit: 'c') ]
+]
+
+{ #category : 'accessing' }
+Hand >> suits: anObject [
+
+	suits := anObject
 ]

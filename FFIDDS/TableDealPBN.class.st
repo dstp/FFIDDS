@@ -31,6 +31,11 @@ TableDealPBN class >> fieldsDesc [
 ]
 
 { #category : 'converting' }
+TableDealPBN >> asByteString [ 
+	^ (handle inject: (WriteStream with: String new) into: [ :s :c | s nextPut: c asCharacter ; yourself ]) contents
+]
+
+{ #category : 'converting' }
 TableDealPBN >> asString [
 	"
 	"
@@ -44,8 +49,8 @@ TableDealPBN >> asStringWithDeal [
 	nSpaces := 21.
 	suit := #('s: ' 'h: ' 'd: ' 'c: ').
 	str := WriteStream with: String new.
-	dealer := deal copyFrom: 1 to: 1.
-	mains := ((deal copyFrom: 3 to: deal size) splitOn: ' ') collect: [ :m | m splitOn: '.' ].
+	dealer := self asByteString copyFrom: 1 to: 1.
+	mains := ((self asByteString copyFrom: 3 to: self asByteString size) splitOn: ' ') collect: [ :m | m splitOn: '.' ].
 	lstIdx := #(#(1 2 3 4) #(4 1 2 3) #(3 4 1 2) #(2 3 4 1)) at: (#('N' 'E' 'S' 'W') indexOf: dealer).
 	north := mains at: (lstIdx at: 1).
 	east := mains at: (lstIdx at: 2).
@@ -101,6 +106,20 @@ EXTERN_C DLLEXPORT int STDCALL CalcParPBN(
 	self parResults: ParResults new. "
 	vul := 0.
 	^ self ffiCall: #(int CalcParPBN #( TableDealPBN self, TableResults * tableResults, int vul, ParResults * parResults )).
+]
+
+{ #category : 'private' }
+TableDealPBN >> createHands [
+	"
+	"
+	| dealer mains lstIdx |
+	dealer := self asByteString copyFrom: 1 to: 1.
+	mains := ((self asByteString copyFrom: 3 to: self asByteString size) splitOn: ' ') collect: [ :m | m splitOn: '.' ].
+	lstIdx := #(#(1 2 3 4) #(4 1 2 3) #(3 4 1 2) #(2 3 4 1)) at: (#('N' 'E' 'S' 'W') indexOf: dealer).
+	North uniqueInstance index: (lstIdx at: 1).
+	East suitsIndex: (lstIdx at: 2).
+	South suitsIndex: (lstIdx at: 3).
+	West suitsIndex: (lstIdx at: 4).
 ]
 
 { #category : 'accessing' }

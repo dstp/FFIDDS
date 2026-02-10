@@ -44,17 +44,8 @@ DDSDealPBN >> ffiDDSCalc: deal res: tabPar [
 		module: 'libdds.so'
 ]
 
-{ #category : 'tests' }
+{ #category : 'accessing' }
 DDSDealPBN >> loadDealPBN: aDealPBN [
 
 	self cards: (FFITypeArray fromHandle: (aDealPBN padRightTo: 80) asByteArray)
-]
-
-{ #category : 'tests' }
-DDSDealPBN >> parDeal: aDealPBN [
-	| res |
-	self loadDealPBN: aDealPBN.
-	res := DDSResults new pbn: aDealPBN.
-	self ffiDDSCalc: self res: res.
-	^ res par: res asString
 ]
