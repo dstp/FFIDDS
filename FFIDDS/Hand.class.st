@@ -50,6 +50,7 @@ Hand >> name [
 { #category : 'printing' }
 Hand >> printOn: aStr [
 	"
+	A test
 	"
 
 	aStr
