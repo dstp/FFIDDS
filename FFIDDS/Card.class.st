@@ -13,11 +13,34 @@ Class {
 	#tag : 'Base'
 }
 
+{ #category : 'printing' }
+Card >> printOn: aStr [
+	"
+	"
+	aStr "nextPutAll: 'aCard -> ';"
+			nextPutAll: self printRank ;
+			nextPutAll: self printSuit.
+]
+
+{ #category : 'converting' }
+Card >> printRank [
+	"
+	"
+	^ rank asString.
+]
+
 { #category : 'converting' }
 Card >> printString [ 
 	"
 	"
 	^ rank asString
+]
+
+{ #category : 'converting' }
+Card >> printSuit [
+	"
+	"
+	^ #( 'p' 'h' 'd' 'c') at: suit.
 ]
 
 { #category : 'accessing' }

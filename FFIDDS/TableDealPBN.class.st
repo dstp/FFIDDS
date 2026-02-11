@@ -30,16 +30,29 @@ TableDealPBN class >> fieldsDesc [
 	^ #( Char80 tableDealPBN)
 ]
 
-{ #category : 'converting' }
-TableDealPBN >> asByteString [ 
-	^ (handle inject: (WriteStream with: String new) into: [ :s :c | s nextPut: c asCharacter ; yourself ]) contents trimRight: [ :char | char = Character null ]
+{ #category : 'accessing' }
+TableDealPBN class >> loadATableDeal: aDealPBN [
+	" Je charge ma donne et je calcule le par (variables parResult et tabResul)
+aDealPBN de ce type 'N:QJ6.K652.J85.T98 873.J97.AT764.Q4 5.T83.KQ92.A7652 AKT942.AQ4.3.KJ3'
+	"
+
+	| aTableDealPBN |
+	aTableDealPBN := self new.
+
+	aTableDealPBN tableResults: TableResults new.
+	aTableDealPBN parResults: ParResults new.
+	aTableDealPBN futureTricks: FutureTricks new.
+	aTableDealPBN vul: 0.
+	^ aTableDealPBN tableDealPBN:
+		  (Char80 new
+			   replaceFrom: 1
+			   to: (aDealPBN size min: 80)
+			   with: aDealPBN)
 ]
 
 { #category : 'converting' }
-TableDealPBN >> asString [
-	"
-	"
-	^ parResults asString , tableResults asString
+TableDealPBN >> asByteString [ 
+	^ (handle inject: (WriteStream with: String new) into: [ :s :c | s nextPut: c asCharacter ; yourself ]) contents trimRight: [ :char | char = Character null ]
 ]
 
 { #category : 'converting' }
@@ -146,19 +159,8 @@ TableDealPBN >> futureTricks: anObject [
 ]
 
 { #category : 'accessing' }
-TableDealPBN >> loadATableDealPBN: aDealPBN [
-	" Je charge ma donne et je calcule le par (variables parResult et tabResul)
-aDealPBN de ce type 'N:QJ6.K652.J85.T98 873.J97.AT764.Q4 5.T83.KQ92.A7652 AKT942.AQ4.3.KJ3'
-	"
-		self tableResults: TableResults new.
-		self parResults: ParResults new. 
-		self futureTricks: FutureTricks new.
-		self vul: 0.
-		^ self tableDealPBN: (Char80 new
-		  replaceFrom: 1
-		  to: (aDealPBN size min: 80)
-		  with: aDealPBN) .
-
+TableDealPBN >> loadATableDeal: aDealPBN [ 
+	^ self class loadATableDeal: aDealPBN 
 ]
 
 { #category : 'accessing' }

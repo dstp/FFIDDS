@@ -1,3 +1,6 @@
+"
+Peut être simplifié
+"
 Class {
 	#name : 'DDSConstantsPool',
 	#superclass : 'SharedPool',

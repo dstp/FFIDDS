@@ -46,3 +46,21 @@ Hand >> name [
 
 	^ self className 
 ]
+
+{ #category : 'printing' }
+Hand >> printOn: aStr [
+	"
+	"
+
+	aStr
+		nextPutAll: self name;
+		nextPutAll: ':'.
+	self hand doWithIndex: [ :suit :idx |
+			aStr
+				nextPutAll: suit first printSuit;
+				nextPutAll: '->{'.
+			suit do: [ :aC |
+					aStr
+						nextPutAll: aC printRank ].
+				aStr	nextPutAll: '} ' ] 
+]
