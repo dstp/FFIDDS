@@ -1,7 +1,7 @@
 "
 A card is described by its rank and its suit:
-The rank can be expressed by its external value (self rank returns a Character) — A,K,Q,J,T,9,8,7,6,5,4,3,2 or by its internal value (self rankValue returns a SmallInteger) — 14,13,12,11,10,9,8,7,6,5,4,3,2.
-The suit can be 0, 1, 2, or 3 to encode, respectively, spades, hearts, diamonds, or clubs
+The rank can be expressed by its external value (self rank returns a Character) - A,K,Q,J,T,9,8,7,6,5,4,3,2 or by its internal value (self rankValue returns a SmallInteger) - 14,13,12,11,10,9,8,7,6,5,4,3,2.
+The suit be expressed by its external value (self suit returns a ByteString) - 's','h','d','c' or by its internal value (self suitValue returns a SmallInteger) - 1,2,3,4 
 "
 Class {
 	#name : 'Card',
@@ -35,9 +35,8 @@ Card >> code [
 Card >> printOn: aStr [
 	"
 	"
-	aStr "nextPutAll: 'aCard -> ';"
-			nextPutAll: self code 
 
+	aStr nextPutAll: 'aCard -> '; nextPutAll: self code
 ]
 
 { #category : 'accessing' }
@@ -48,17 +47,6 @@ Card >> rank [
 	          or a character but not one of the allowed ranks.	"
 	
 	^ '123456789TJQKA' at: self rankValue
-]
-
-{ #category : 'accessing' }
-Card >> rankPBN: anObject [
-
-	"
-	1 if anObject is not of type Character.
-	  or a character but not one of the allowed ranks.
-	"	
-	rankValue := '123456789TJQKA' indexOf: anObject
-	
 ]
 
 { #category : 'accessing' }

@@ -1,5 +1,7 @@
 "
-Je contiens les répertoires et autres constantes utilisées 
+I contain the directories and other constants used
+GifPath directory where are the images of card
+GifDic dictionnary 'As' -> Form 
 "
 Class {
 	#name : 'ConstantPool',

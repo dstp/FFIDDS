@@ -8,3 +8,11 @@ Class {
 	#package : 'FFIDDS',
 	#tag : 'Base'
 }
+
+{ #category : 'accessing' }
+West >> name [
+	"
+	"
+
+	^ 'W'
+]
