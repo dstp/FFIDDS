@@ -1,5 +1,6 @@
 "
-La main du jouer
+A hand in bridge consists of the 13 cards dealt to a player.
+The four bridge players are called North, East, South, and West.
 "
 Class {
 	#name : 'Hand',
@@ -16,10 +17,31 @@ Class {
 }
 
 { #category : 'accessing' }
+Hand class >> initializeUniqueInstance [
+	self = Hand
+		ifTrue: [ self error: 'I''m an abstract class, use one of my children.' ].
+	^ uniqueInstance := super new.
+]
+
+{ #category : 'accessing' }
 Hand class >> uniqueInstance [
 	self = Hand
 		ifTrue: [ self error: 'I''m an abstract class, use one of my children.' ].
 	^ uniqueInstance ifNil: [ uniqueInstance := super new ]
+]
+
+{ #category : 'accessing' }
+Hand >> clubs [
+	"
+	"
+	^ self hand last
+]
+
+{ #category : 'accessing' }
+Hand >> diamonds [
+	"
+	"
+	^ self hand at: 3
 ]
 
 { #category : 'accessing' }
@@ -35,10 +57,17 @@ Hand >> hand: anObject [
 	anArray := Array new: 4.
 	anObject asOrderedCollection withIndexCollect: [ :obj : ind |
 		anArray at: ind put: (obj asOrderedCollection collect: [ :e | 
-			Card new suit: ind; rank: e; yourself.
+			Card new suitValue: ind; rankPBNToRankValue: e; yourself.
 		])
 	] .
 	hand := anArray .
+]
+
+{ #category : 'accessing' }
+Hand >> hearts [
+	"
+	"
+	^ self hand at: 2
 ]
 
 { #category : 'accessing' }
@@ -56,12 +85,18 @@ Hand >> printOn: aStr [
 	aStr
 		nextPutAll: self name;
 		nextPutAll: ':'.
-	self hand doWithIndex: [ :suit :idx |
-			aStr
-				nextPutAll: suit first printSuit;
-				nextPutAll: '->{'.
-			suit do: [ :aC |
+	self hand ifNotNil: [
+			self hand doWithIndex: [ :aSuit :idx |
 					aStr
-						nextPutAll: aC printRank ].
-				aStr	nextPutAll: '} ' ] 
+						nextPutAll: aSuit first suit;
+						nextPutAll: '->{'.
+					aSuit do: [ :aC | aStr nextPutAll: aC rank asString].
+					aStr nextPutAll: '} ' ] ]
+]
+
+{ #category : 'accessing' }
+Hand >> spades [
+	"
+	"
+	^ self hand first
 ]

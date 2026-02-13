@@ -1,14 +1,13 @@
 "
-Les objets qui constituent une table de bridde
-- Les cartes : Card
-- Les joueur : Joueur name, main ...
+I am grouping together the items that make up a bridge table:
+– The cards
+– The hands
 "
 Class {
 	#name : 'Bridge',
 	#superclass : 'Object',
-	#classVars : [
-		'OFFSET_CODE',
-		'OFFSET_LINE'
+	#pools : [
+		'ConstantPool'
 	],
 	#category : 'FFIDDS-Base',
 	#package : 'FFIDDS',

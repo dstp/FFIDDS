@@ -1,68 +1,106 @@
 "
-Carte : value, suit
+A card is described by its rank and its suit:
+The rank can be expressed by its external value (self rank returns a Character) — A,K,Q,J,T,9,8,7,6,5,4,3,2 or by its internal value (self rankValue returns a SmallInteger) — 14,13,12,11,10,9,8,7,6,5,4,3,2.
+The suit can be 0, 1, 2, or 3 to encode, respectively, spades, hearts, diamonds, or clubs
 "
 Class {
 	#name : 'Card',
 	#superclass : 'Bridge',
 	#instVars : [
-		'suit',
-		'rank'
+		'suitValue',
+		'rankValue'
 	],
 	#category : 'FFIDDS-Base',
 	#package : 'FFIDDS',
 	#tag : 'Base'
 }
 
+{ #category : 'converting' }
+Card >> asMorph [
+	"
+	"
+	^ ImageMorph new image: (GifDict at: self code ).
+
+
+]
+
+{ #category : 'accessing' }
+Card >> code [
+	"
+	"
+	^ self rank asString, self suit asString
+]
+
 { #category : 'printing' }
 Card >> printOn: aStr [
 	"
 	"
 	aStr "nextPutAll: 'aCard -> ';"
-			nextPutAll: self printRank ;
-			nextPutAll: self printSuit.
-]
+			nextPutAll: self code 
 
-{ #category : 'converting' }
-Card >> printRank [
-	"
-	"
-	^ rank asString.
-]
-
-{ #category : 'converting' }
-Card >> printString [ 
-	"
-	"
-	^ rank asString
-]
-
-{ #category : 'converting' }
-Card >> printSuit [
-	"
-	"
-	^ #( 'p' 'h' 'd' 'c') at: suit.
 ]
 
 { #category : 'accessing' }
 Card >> rank [
 
-	^ rank
+	"
+	Returns 0 if rankValue is not of type Character.
+	          or a character but not one of the allowed ranks.	"
+	
+	^ '123456789TJQKA' at: self rankValue
 ]
 
 { #category : 'accessing' }
-Card >> rank: anObject [
+Card >> rankPBN: anObject [
 
-	rank := anObject
+	"
+	1 if anObject is not of type Character.
+	  or a character but not one of the allowed ranks.
+	"	
+	rankValue := '123456789TJQKA' indexOf: anObject
+	
+]
+
+{ #category : 'accessing' }
+Card >> rankPBNToRankValue: anObject [
+
+	"
+	1 if anObject is not of type Character.
+	  or a character but not one of the allowed ranks.
+	"	
+	rankValue := ('123456789TJQKA' indexOf: anObject)
+]
+
+{ #category : 'accessing' }
+Card >> rankValue [
+	"
+	"
+		
+	^ rankValue 
+]
+
+{ #category : 'accessing' }
+Card >> rankValue: anObject [
+
+	rankValue := anObject
 ]
 
 { #category : 'accessing' }
 Card >> suit [
-
-	^ suit
+	"
+	"
+	^ #( 's' 'h' 'd' 'c') at: self suitValue.
 ]
 
 { #category : 'accessing' }
-Card >> suit: anObject [
+Card >> suitValue [
+	"
+	"
+	^ suitValue.
+]
 
-	suit := anObject
+{ #category : 'accessing' }
+Card >> suitValue: anObject [
+
+	suitValue := anObject
 ]
