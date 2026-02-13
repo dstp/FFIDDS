@@ -6,7 +6,10 @@ Class {
 	#name : 'Hand',
 	#superclass : 'Bridge',
 	#instVars : [
-		'hand'
+		'spade',
+		'heart',
+		'diamond',
+		'club'
 	],
 	#classInstVars : [
 		'uniqueInstance'
@@ -31,23 +34,15 @@ Hand class >> uniqueInstance [
 ]
 
 { #category : 'accessing' }
-Hand >> clubs [
-	"
-	"
-	^ self hand last
+Hand >> club [
+
+	^ club
 ]
 
 { #category : 'accessing' }
-Hand >> diamonds [
-	"
-	"
-	^ self hand at: 3
-]
+Hand >> diamond [
 
-{ #category : 'accessing' }
-Hand >> hand [
-
-	^ hand
+	^ diamond
 ]
 
 { #category : 'accessing' }
@@ -55,19 +50,22 @@ Hand >> hand: anObject [
 
 	| anArray |
 	anArray := Array new: 4.
-	anObject asOrderedCollection withIndexCollect: [ :obj : ind |
-		anArray at: ind put: (obj asOrderedCollection collect: [ :e | 
-			Card new suitValue: ind; rankPBNToRankValue: e; yourself.
-		])
-	] .
-	hand := anArray .
+	anObject asOrderedCollection withIndexCollect: [ :obj :ind |
+			anArray at: ind put: (obj asOrderedCollection collect: [ :e |
+						 Card new
+							 suitValue: ind;
+							 rankPBNToRankValue: e;
+							 yourself ]) ].
+	spade := Spade newWith: anArray first.
+	heart := Heart newWith: (anArray at: 2).
+	diamond := Diamond newWith: (anArray at: 3).
+	club := Club newWith: anArray last
 ]
 
 { #category : 'accessing' }
-Hand >> hearts [
-	"
-	"
-	^ self hand at: 2
+Hand >> heart [
+
+	^ heart
 ]
 
 { #category : 'accessing' }
@@ -84,19 +82,15 @@ Hand >> printOn: aStr [
 
 	aStr
 		nextPutAll: self name;
-		nextPutAll: ':'.
-	self hand ifNotNil: [
-			self hand doWithIndex: [ :aSuit :idx |
-					aStr
-						nextPutAll: aSuit first suit;
-						nextPutAll: '->{'.
-					aSuit do: [ :aC | aStr nextPutAll: aC rank asString].
-					aStr nextPutAll: '} ' ] ]
+		nextPutAll: ': '.
+	spade printOn: aStr.
+	heart printOn: aStr.
+	diamond printOn: aStr.
+	club printOn: aStr
 ]
 
 { #category : 'accessing' }
-Hand >> spades [
-	"
-	"
-	^ self hand first
+Hand >> spade [
+
+	^ spade
 ]
