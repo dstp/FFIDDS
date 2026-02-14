@@ -37,8 +37,9 @@ Card >> asMorphText [
 	"
 	"
 
-	^ TextMorph new text: self rank;
-	 font: (LogicalFont familyName: 'Source Code Pro' pointSize: 12).
+	^ TextMorph new
+		  text: self rank;
+		  font: Font
 ]
 
 { #category : 'accessing' }

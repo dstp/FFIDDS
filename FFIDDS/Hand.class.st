@@ -33,16 +33,6 @@ Hand class >> uniqueInstance [
 	^ uniqueInstance ifNil: [ uniqueInstance := super new ]
 ]
 
-{ #category : 'converting' }
-Hand >> asMorphText [ 
-	"
-	"
-	^ TextMorph new contents: '' ;
-	font: (LogicalFont familyName: 'Source Code Pro' pointSize: 12);
-	overrideExtent: 580@320.
-
-]
-
 { #category : 'accessing' }
 Hand >> club [
 
