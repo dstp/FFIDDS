@@ -7,6 +7,7 @@ Class {
 	#name : 'ConstantPool',
 	#superclass : 'SharedPool',
 	#classVars : [
+		'Font',
 		'GifDict',
 		'GifPath'
 	],
