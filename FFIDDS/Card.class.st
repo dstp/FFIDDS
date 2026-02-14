@@ -24,6 +24,23 @@ Card >> asMorph [
 
 ]
 
+{ #category : 'converting' }
+Card >> asMorphImage [
+	"
+	"
+
+	^ ImageMorph new image: (GifDict at: self code)
+]
+
+{ #category : 'converting' }
+Card >> asMorphText [
+	"
+	"
+
+	^ TextMorph new text: self rank;
+	 font: (LogicalFont familyName: 'Source Code Pro' pointSize: 12).
+]
+
 { #category : 'accessing' }
 Card >> code [
 	"
