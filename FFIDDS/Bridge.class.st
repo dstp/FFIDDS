@@ -7,6 +7,7 @@ Class {
 	#name : 'Bridge',
 	#superclass : 'Object',
 	#classVars : [
+		'Results',
 		'TextMorphV',
 		'WindowMorphV'
 	],
@@ -33,6 +34,22 @@ Bridge class >> asMorphText: aTable [
 	self windowMorph openInWorld
 ]
 
+{ #category : 'converting' }
+Bridge class >> asMorphTextSave: aTable [
+	"
+	"
+
+	aTable createHands.
+	self textMorph contents: aTable asStringWithDeal.
+	self windowMorph setLabel: 'dealer : ' , ((Array
+			  with: North uniqueInstance
+			  with: East uniqueInstance
+			  with: South uniqueInstance
+			  with: West uniqueInstance) at: ('NESW' indexOf: aTable dealer))
+			name.
+	self windowMorph openInWorld
+]
+
 { #category : 'accessing' }
 Bridge class >> textMorph [
 
@@ -47,7 +64,7 @@ Bridge class >> textMorph [
 { #category : 'accessing' }
 Bridge class >> textMorph: anObject [
 
-	^ TextMorphV := anObject
+	TextMorphV := anObject
 ]
 
 { #category : 'accessing' }
@@ -55,14 +72,13 @@ Bridge class >> windowMorph [
 
 	^ WindowMorphV ifNil: [
 			  WindowMorphV := (SystemWindow labelled: 'a new Deal')
-				                  addMorphFront: self textMorph;
+				                  addMorphFront: self textMorph ;
 				                  extent: WindowExtent ]
 ]
 
 { #category : 'accessing' }
 Bridge class >> windowMorph: anObject [
-
-	^ WindowMorphV := anObject
+	 WindowMorphV := anObject.
 ]
 
 { #category : 'converting' }
@@ -73,4 +89,16 @@ Bridge >> asMorphText [
 { #category : 'converting' }
 Bridge >> asMorphText: aTable [ 
 	^ self class asMorphText: aTable 
+]
+
+{ #category : 'accessing' }
+Bridge >> results [
+
+	^ Results
+]
+
+{ #category : 'accessing' }
+Bridge >> results: anObject [
+
+	Results := anObject
 ]

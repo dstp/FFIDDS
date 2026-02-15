@@ -8,3 +8,11 @@ Class {
 	#package : 'FFIDDS',
 	#tag : 'Base'
 }
+
+{ #category : 'converting' }
+South >> position [
+	"
+	"
+
+	^ 316 @ 245
+]

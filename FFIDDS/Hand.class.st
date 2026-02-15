@@ -9,7 +9,11 @@ Class {
 		'spade',
 		'heart',
 		'diamond',
-		'club'
+		'club',
+		'textMorph'
+	],
+	#classVars : [
+		'WindowMorphV2'
 	],
 	#classInstVars : [
 		'uniqueInstance'
@@ -18,6 +22,37 @@ Class {
 	#package : 'FFIDDS',
 	#tag : 'Base'
 }
+
+{ #category : 'converting' }
+Hand class >> asMorphText: aTable [
+	"
+	"
+
+	aTable createHands.
+	Results := aTable tableResults.
+	self windowMorph setLabel: 'dealer : ' , ((Array
+			  with: North uniqueInstance
+			  with: East uniqueInstance
+			  with: South uniqueInstance
+			  with: West uniqueInstance) at: ('NESW' indexOf: aTable dealer))
+			name.
+	North uniqueInstance textMorph contents: North uniqueInstance asString.
+	East uniqueInstance textMorph contents: East uniqueInstance asString.
+	South uniqueInstance textMorph contents: South uniqueInstance asString.
+	West uniqueInstance textMorph contents: West uniqueInstance asString.
+	self windowMorph openInWorld
+]
+
+{ #category : 'converting' }
+Hand class >> asTableResultsMorph [
+	"
+	"
+	^ TextMorph new
+		  contents: Results asString;
+		  font: Font;
+		  position: 10 @ 25;
+		  overrideExtent: 200 @ 200
+]
 
 { #category : 'accessing' }
 Hand class >> initializeUniqueInstance [
@@ -34,6 +69,58 @@ Hand class >> uniqueInstance [
 ]
 
 { #category : 'accessing' }
+Hand class >> windowMorph [
+
+	^ WindowMorphV2 ifNil: [
+			  WindowMorphV2 := (SystemWindow labelled: 'a new Deal')
+				                   addMorph: North uniqueInstance textMorph;
+				                   addMorph: East uniqueInstance textMorph;
+				                   addMorph: South uniqueInstance textMorph;
+				                   addMorph: West uniqueInstance textMorph;
+				                   addMorph: self asTableResultsMorph;
+				                   extent: WindowExtent ]
+]
+
+{ #category : 'accessing' }
+Hand class >> windowMorph: anObject [
+
+	WindowMorphV2 := anObject
+]
+
+{ #category : 'converting' }
+Hand >> asString [
+	"
+	"
+
+	| aStr |
+	aStr := WriteStream with: String new.
+	aStr
+		nextPutAll: self name;
+		cr;
+		nextPutAll: self spade asString;
+		cr;
+		nextPutAll: self heart asString;
+		cr;
+		nextPutAll: self diamond asString;
+		cr;
+		nextPutAll: self club asString;
+		cr.
+	^ aStr contents
+]
+
+{ #category : 'converting' }
+Hand >> asTextMorph [
+	"
+	"
+
+	^ TextMorph new
+		  contents: self asString;
+		  font: Font;
+		  position: self position;
+		  overrideExtent:  self extent
+]
+
+{ #category : 'accessing' }
 Hand >> club [
 
 	^ club
@@ -43,6 +130,14 @@ Hand >> club [
 Hand >> diamond [
 
 	^ diamond
+]
+
+{ #category : 'converting' }
+Hand >> extent [
+	"
+	"
+
+	^ 200 @ 150
 ]
 
 { #category : 'accessing' }
@@ -74,6 +169,14 @@ Hand >> name [
 	^ self className
 ]
 
+{ #category : 'converting' }
+Hand >> position [ 
+	"
+	"
+	^ self shouldBeImplemented 
+
+]
+
 { #category : 'printing' }
 Hand >> printOn: aStr [
 	"
@@ -93,4 +196,35 @@ Hand >> printOn: aStr [
 Hand >> spade [
 
 	^ spade
+]
+
+{ #category : 'accessing' }
+Hand >> tableResults [
+
+	^ Results
+]
+
+{ #category : 'accessing' }
+Hand >> tableResults: anObject [
+
+	Results := anObject
+]
+
+{ #category : 'accessing' }
+Hand >> textMorph [
+	"
+	"
+
+	^ textMorph ifNil: [
+			  textMorph := TextMorph new
+				               contents: '';
+				               font: Font;
+				               position: self position;
+				               overrideExtent: self extent ]
+]
+
+{ #category : 'accessing' }
+Hand >> textMorph: anObject [
+
+	textMorph := anObject
 ]
