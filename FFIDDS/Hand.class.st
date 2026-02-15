@@ -73,10 +73,10 @@ Hand class >> windowMorph [
 
 	^ WindowMorphV2 ifNil: [
 			  WindowMorphV2 := (SystemWindow labelled: 'a new Deal')
-				                   addMorph: North uniqueInstance textMorph;
-				                   addMorph: East uniqueInstance textMorph;
-				                   addMorph: South uniqueInstance textMorph;
-				                   addMorph: West uniqueInstance textMorph;
+				                   addMorph: North uniqueInstance asTextMorph;
+				                   addMorph: East uniqueInstance asTextMorph;
+				                   addMorph: South uniqueInstance asTextMorph;
+				                   addMorph: West uniqueInstance asTextMorph;
 				                   addMorph: self asTableResultsMorph;
 				                   extent: WindowExtent ]
 ]
