@@ -13,6 +13,10 @@ Class {
 		'textMorph'
 	],
 	#classVars : [
+		'EastMorph',
+		'NorthMorph',
+		'SouthMorph',
+		'WestMorph',
 		'WindowMorphV2'
 	],
 	#classInstVars : [
@@ -29,29 +33,18 @@ Hand class >> asMorphText: aTable [
 	"
 
 	aTable createHands.
-	Results := aTable tableResults.
+	"ResultsMorph := aTable tableResults."
 	self windowMorph setLabel: 'dealer : ' , ((Array
 			  with: North uniqueInstance
 			  with: East uniqueInstance
 			  with: South uniqueInstance
 			  with: West uniqueInstance) at: ('NESW' indexOf: aTable dealer))
 			name.
-	"North changeContents.
+	North changeContents.
 	East changeContents.
 	South changeContents.
-	West changeContents."
+	West changeContents.
 	self windowMorph openInWorld
-]
-
-{ #category : 'converting' }
-Hand class >> asTableResultsMorph [
-	"
-	"
-	^ TextMorph new
-		  contents: Results asString;
-		  font: Font;
-		  position: 10 @ 25;
-		  overrideExtent: 200 @ 200
 ]
 
 { #category : 'converting' }
@@ -70,10 +63,102 @@ Hand class >> changeContents [
 ]
 
 { #category : 'accessing' }
+Hand class >> contractsMorph [
+
+	^ ContractsMorph
+]
+
+{ #category : 'accessing' }
+Hand class >> contractsMorph: anObject [
+
+	ContractsMorph := anObject
+]
+
+{ #category : 'accessing' }
+Hand class >> eastMorph [
+
+	^ EastMorph ifNil: [
+			  EastMorph := TextMorph new
+				                contents: self asString;
+				                font: Font;
+				                position: East uniqueInstance position;
+				                overrideExtent: East uniqueInstance extent ]
+]
+
+{ #category : 'accessing' }
+Hand class >> eastMorph: anObject [
+
+	EastMorph := anObject
+]
+
+{ #category : 'accessing' }
 Hand class >> initializeUniqueInstance [
 	self = Hand
 		ifTrue: [ self error: 'I''m an abstract class, use one of my children.' ].
 	^ uniqueInstance := super new.
+]
+
+{ #category : 'accessing' }
+Hand class >> northMorph [
+
+	^ NorthMorph ifNil: [ 
+		NorthMorph := TextMorph new
+		  contents: self asString;
+		  font: Font;
+		  position: North uniqueInstance position;
+		  overrideExtent: North uniqueInstance extent ]
+]
+
+{ #category : 'accessing' }
+Hand class >> northMorph: anObject [
+
+	NorthMorph := anObject
+]
+
+{ #category : 'accessing' }
+Hand class >> southMorph [
+
+
+	^ SouthMorph ifNil: [ 
+		SouthMorph := TextMorph new
+		  contents: self asString;
+		  font: Font;
+		  position: South uniqueInstance position;
+		  overrideExtent: South uniqueInstance extent ]
+]
+
+{ #category : 'accessing' }
+Hand class >> southMorph: anObject [
+
+	SouthMorph := anObject
+]
+
+{ #category : 'accessing' }
+Hand class >> tableResults [
+
+	^ ResultsMorph ifNil: [
+			  ResultsMorph := TextMorph new
+				                contents: '';
+				                font: Font;
+		  position: 10 @ 25;
+		  overrideExtent: 200 @ 200]
+]
+
+{ #category : 'accessing' }
+Hand class >> tableResults: anObject [
+
+	ResultsMorph := anObject
+]
+
+{ #category : 'converting' }
+Hand class >> tableResultsMorph [
+	"
+	"
+	^ TextMorph new
+		  contents: ResultsMorph asString;
+		  font: Font;
+		  position: 10 @ 25;
+		  overrideExtent: 200 @ 200
 ]
 
 { #category : 'accessing' }
@@ -84,20 +169,37 @@ Hand class >> uniqueInstance [
 ]
 
 { #category : 'accessing' }
+Hand class >> westMorph [
+
+	^ WestMorph ifNil: [
+			  WestMorph := TextMorph new
+				                contents: self asString;
+				                font: Font;
+				                position: West uniqueInstance position;
+				                overrideExtent: West uniqueInstance extent ]
+]
+
+{ #category : 'accessing' }
+Hand class >> westMorph: anObject [
+
+	WestMorph := anObject
+]
+
+{ #category : 'accessing' }
 Hand class >> windowMorph [
 
 	^ WindowMorphV2 ifNil: [
 			  WindowMorphV2 := (SystemWindow labelled: 'a new Deal')
-				                   "addMorph: North textMorph;
+				                   addMorph: North northMorph ;
+				                   addMorph: East eastMorph;
+				                   addMorph: South southMorph;
+				                   addMorph: West westMorph;
+				                   " addMorph: self tableResultsMorph;"extent:
+					                   WindowExtent
+			  "addMorph: North textMorph;
 				                   addMorph: East textMorph;
 				                   addMorph: South textMorph;
-				                   addMorph: West textMorph;"
-			 				 addMorph: North asTextMorph;
-				                   addMorph: East asTextMorph;
-				                   addMorph: South asTextMorph;
-				                   addMorph: West asTextMorph;
-							 addMorph: self asTableResultsMorph;extent:  WindowExtent ]
-
+				                   addMorph: West textMorph;" ]
 ]
 
 { #category : 'accessing' }
@@ -140,11 +242,11 @@ Hand >> asTextMorph [
 ]
 
 { #category : 'converting' }
-Hand >> changeContents [ 
+Hand >> changeContents [
 	"
 	"
-	
-	self textMorph contents: self asString 
+
+	^ self shouldBeImplemented 
 ]
 
 { #category : 'accessing' }
@@ -154,9 +256,29 @@ Hand >> club [
 ]
 
 { #category : 'accessing' }
+Hand >> contractsMorph [
+	^ self class contractsMorph
+]
+
+{ #category : 'accessing' }
+Hand >> contractsMorph: anObject [ 
+	^ self class contractsMorph: anObject 
+]
+
+{ #category : 'accessing' }
 Hand >> diamond [
 
 	^ diamond
+]
+
+{ #category : 'accessing' }
+Hand >> eastMorph [
+	^ self class eastMorph
+]
+
+{ #category : 'accessing' }
+Hand >> eastMorph: anObject [ 
+	^ self class eastMorph: anObject 
 ]
 
 { #category : 'converting' }
@@ -196,6 +318,16 @@ Hand >> name [
 	^ self className
 ]
 
+{ #category : 'accessing' }
+Hand >> northMorph [
+	^ self class northMorph
+]
+
+{ #category : 'accessing' }
+Hand >> northMorph: anObject [ 
+	^ self class northMorph: anObject 
+]
+
 { #category : 'converting' }
 Hand >> position [ 
 	"
@@ -220,6 +352,16 @@ Hand >> printOn: aStr [
 ]
 
 { #category : 'accessing' }
+Hand >> southMorph [
+	^ self class southMorph
+]
+
+{ #category : 'accessing' }
+Hand >> southMorph: anObject [ 
+	^ self class southMorph: anObject 
+]
+
+{ #category : 'accessing' }
 Hand >> spade [
 
 	^ spade
@@ -227,14 +369,12 @@ Hand >> spade [
 
 { #category : 'accessing' }
 Hand >> tableResults [
-
-	^ Results
+	^ self class tableResults
 ]
 
 { #category : 'accessing' }
-Hand >> tableResults: anObject [
-
-	Results := anObject
+Hand >> tableResults: anObject [ 
+	^ self class tableResults: anObject 
 ]
 
 { #category : 'accessing' }
@@ -254,4 +394,14 @@ Hand >> textMorph [
 Hand >> textMorph: anObject [
 
 	textMorph := anObject
+]
+
+{ #category : 'accessing' }
+Hand >> westMorph [
+	^ self class westMorph
+]
+
+{ #category : 'accessing' }
+Hand >> westMorph: anObject [ 
+	^ self class westMorph: anObject 
 ]

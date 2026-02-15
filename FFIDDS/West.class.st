@@ -10,6 +10,14 @@ Class {
 }
 
 { #category : 'converting' }
+West >> changeContents [
+	"
+	"
+
+	self westMorph contents: self asString
+]
+
+{ #category : 'converting' }
 West >> position [
 	"
 	"

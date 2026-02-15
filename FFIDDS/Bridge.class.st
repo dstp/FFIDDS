@@ -7,7 +7,8 @@ Class {
 	#name : 'Bridge',
 	#superclass : 'Object',
 	#classVars : [
-		'Results',
+		'ContractsMorph',
+		'ResultsMorph',
 		'TextMorphV',
 		'WindowMorphV'
 	],
@@ -94,13 +95,25 @@ Bridge >> asMorphText: aTable [
 ]
 
 { #category : 'accessing' }
+Bridge >> contracts [
+
+	^ ContractsMorph
+]
+
+{ #category : 'accessing' }
+Bridge >> contracts: anObject [
+
+	ContractsMorph := anObject
+]
+
+{ #category : 'accessing' }
 Bridge >> results [
 
-	^ Results
+	^ ResultsMorph
 ]
 
 { #category : 'accessing' }
 Bridge >> results: anObject [
 
-	Results := anObject
+	ResultsMorph := anObject
 ]

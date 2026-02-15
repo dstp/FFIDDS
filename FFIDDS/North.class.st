@@ -10,6 +10,14 @@ Class {
 }
 
 { #category : 'converting' }
+North >> changeContents [
+	"
+	"
+
+	self northMorph contents: self asString
+]
+
+{ #category : 'converting' }
 North >> position [
 	"
 	"
