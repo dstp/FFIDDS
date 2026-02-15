@@ -23,14 +23,16 @@ Class {
 Bridge class >> asMorphText: aTable [
 	"
 	"
-	aTable createHands .
-	self textMorph contents: aTable asStringWithDeal.
+
+	aTable createHands.
+	"self textMorph contents: aTable asStringWithDeal."
 	self windowMorph setLabel: 'dealer : ' , ((Array
 			  with: North uniqueInstance
 			  with: East uniqueInstance
 			  with: South uniqueInstance
 			  with: West uniqueInstance) at: ('NESW' indexOf: aTable dealer))
 			name.
+	self textMorph contents: aTable asStringWithDeal.
 	self windowMorph openInWorld
 ]
 
