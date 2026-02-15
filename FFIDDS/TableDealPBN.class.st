@@ -12,7 +12,8 @@ Class {
 		'vul',
 		'futureTricks',
 		'parResults',
-		'tableResults'
+		'tableResults',
+		'returnCallFFI'
 	],
 	#classVars : [
 		'OFFSET_TABLEDEALPBN'
@@ -32,8 +33,9 @@ TableDealPBN class >> fieldsDesc [
 
 { #category : 'accessing' }
 TableDealPBN class >> loadATableDeal: aDealPBN [
-	" Je charge ma donne et je calcule le par (variables parResult et tabResul)
-aDealPBN de ce type 'N:QJ6.K652.J85.T98 873.J97.AT764.Q4 5.T83.KQ92.A7652 AKT942.AQ4.3.KJ3'
+	" 
+	Je charge ma donne et je calcule le par (variables parResults et tableResults)
+	aDealPBN de ce type 'N:QJ6.K652.J85.T98 873.J97.AT764.Q4 5.T83.KQ92.A7652 AKT942.AQ4.3.KJ3'
 	"
 
 	| aTableDealPBN |
@@ -43,11 +45,13 @@ aDealPBN de ce type 'N:QJ6.K652.J85.T98 873.J97.AT764.Q4 5.T83.KQ92.A7652 AKT942
 	aTableDealPBN parResults: ParResults new.
 	aTableDealPBN futureTricks: FutureTricks new.
 	aTableDealPBN vul: 0.
-	^ aTableDealPBN tableDealPBN:
-		  (Char80 new
-			   replaceFrom: 1
-			   to: (aDealPBN size min: 80)
-			   with: aDealPBN)
+	aTableDealPBN tableDealPBN:
+		(Char80 new
+			 replaceFrom: 1
+			 to: (aDealPBN size min: 80)
+			 with: aDealPBN).
+	 aTableDealPBN calcParPBN.
+	^ aTableDealPBN 
 ]
 
 { #category : 'converting' }
@@ -118,7 +122,9 @@ EXTERN_C DLLEXPORT int STDCALL CalcParPBN(
 	"self tableResults: TableResults new.
 	self parResults: ParResults new. "
 	vul := 0.
-	^ self ffiCall: #(int CalcParPBN #( TableDealPBN self, TableResults * tableResults, int vul, ParResults * parResults )).
+	
+	returnCallFFI :=  self ffiCall: #(int CalcParPBN #( TableDealPBN self, TableResults * tableResults, int vul, ParResults * parResults )).
+	^ self
 ]
 
 { #category : 'accessing' }
@@ -172,6 +178,18 @@ TableDealPBN >> parResults [
 { #category : 'accessing' }
 TableDealPBN >> parResults: anObject [
 	parResults := anObject
+]
+
+{ #category : 'accessing' }
+TableDealPBN >> returnCallFFI [
+
+	^ returnCallFFI
+]
+
+{ #category : 'accessing' }
+TableDealPBN >> returnCallFFI: anObject [
+
+	returnCallFFI := anObject
 ]
 
 { #category : 'accessing - structure variables' }

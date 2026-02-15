@@ -20,10 +20,13 @@ Class {
 ConstantPool class >> initialize [
 	"
 	"
+
 	| gifFiles |
-	GifPath := '/home/dsp/Pharo/images/Pharo 13.0 - FFIDDS/pharo-local/iceberg/dstp/FFIDDS/ressources/cards' asFileReference.
+	GifPath := '/home/dsp/Pharo/images/Pharo 13.0 - FFIDDS/pharo-local/iceberg/dstp/FFIDDS/ressources/cards'
+		           asFileReference.
 	GifDict := Dictionary new.
 	gifFiles := GifPath files select: [ :f | f extension = 'gif' ].
 	gifFiles do: [ :f |
-	GifDict at: f base put: (GIFReadWriter formFromFileNamed: f) ] .
+		GifDict at: f base put: (GIFReadWriter formFromFileNamed: f) ].
+	Font := LogicalFont familyName: 'Source Code Pro' pointSize: 12
 ]

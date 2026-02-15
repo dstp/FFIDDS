@@ -71,7 +71,7 @@ Hand >> heart [
 { #category : 'accessing' }
 Hand >> name [
 
-	^ self shouldNotImplement 
+	^ self className
 ]
 
 { #category : 'printing' }

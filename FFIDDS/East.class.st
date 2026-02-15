@@ -8,10 +8,3 @@ Class {
 	#package : 'FFIDDS',
 	#tag : 'Base'
 }
-
-{ #category : 'accessing' }
-East >> name [ 
-	"
-	"
-	^ 'E'
-]
