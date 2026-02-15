@@ -50,8 +50,8 @@ TableDealPBN class >> loadATableDeal: aDealPBN [
 			 replaceFrom: 1
 			 to: (aDealPBN size min: 80)
 			 with: aDealPBN).
-	 aTableDealPBN calcParPBN.
-	^ aTableDealPBN 
+	aTableDealPBN calcParPBN.
+	^ aTableDealPBN
 ]
 
 { #category : 'converting' }

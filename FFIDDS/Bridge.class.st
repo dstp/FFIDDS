@@ -22,18 +22,7 @@ Class {
 Bridge class >> asMorphText: aTable [
 	"
 	"
-
-"	| aTextMorph |
-	aTextMorph := self asMorphText.
-	aTextMorph openInWindow.
-	aTextMorph window setLabel: 'dealer : ' , ((Array
-			  with: North uniqueInstance
-			  with: East uniqueInstance
-			  with: South uniqueInstance
-			  with: West uniqueInstance) at: ('NESW' indexOf: aTable dealer))
-			name.
-	aTextMorph contents: aTable asStringWithDeal"
-	"(self windowMorph submorphsSatisfying: [ :m | m class = TextMorph ]) first  contents: aTable asStringWithDeal"
+	aTable createHands .
 	self textMorph contents: aTable asStringWithDeal.
 	self windowMorph setLabel: 'dealer : ' , ((Array
 			  with: North uniqueInstance
@@ -41,9 +30,7 @@ Bridge class >> asMorphText: aTable [
 			  with: South uniqueInstance
 			  with: West uniqueInstance) at: ('NESW' indexOf: aTable dealer))
 			name.
-	self windowMorph openInWorld.
-
-
+	self windowMorph openInWorld
 ]
 
 { #category : 'accessing' }
@@ -53,7 +40,8 @@ Bridge class >> textMorph [
 			  TextMorphV := TextMorph new
 				                contents: '';
 				                font: Font;
-				                overrideExtent: 580 @ 320 ]
+				                position: 30 @ 30;
+				                extent: TextExtent ]
 ]
 
 { #category : 'accessing' }
@@ -66,7 +54,9 @@ Bridge class >> textMorph: anObject [
 Bridge class >> windowMorph [
 
 	^ WindowMorphV ifNil: [
-		  WindowMorphV := self textMorph openInWindow window hide ]
+			  WindowMorphV := (SystemWindow labelled: 'a new Deal')
+				                  addMorphFront: self textMorph;
+				                  extent: WindowExtent ]
 ]
 
 { #category : 'accessing' }

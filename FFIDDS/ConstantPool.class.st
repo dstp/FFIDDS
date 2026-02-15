@@ -9,7 +9,9 @@ Class {
 	#classVars : [
 		'Font',
 		'GifDict',
-		'GifPath'
+		'GifPath',
+		'TextExtent',
+		'WindowExtent'
 	],
 	#category : 'FFIDDS-Base',
 	#package : 'FFIDDS',
@@ -28,5 +30,7 @@ ConstantPool class >> initialize [
 	gifFiles := GifPath files select: [ :f | f extension = 'gif' ].
 	gifFiles do: [ :f |
 		GifDict at: f base put: (GIFReadWriter formFromFileNamed: f) ].
-	Font := LogicalFont familyName: 'Source Code Pro' pointSize: 12
+	Font := LogicalFont familyName: 'Source Code Pro' pointSize: 12.
+	TextExtent := 580 @ 320.
+	WindowExtent := TextExtent + (50 @ 50)
 ]
