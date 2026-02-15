@@ -36,10 +36,10 @@ Hand class >> asMorphText: aTable [
 			  with: South uniqueInstance
 			  with: West uniqueInstance) at: ('NESW' indexOf: aTable dealer))
 			name.
-	North uniqueInstance textMorph contents: North uniqueInstance asString.
-	East uniqueInstance textMorph contents: East uniqueInstance asString.
-	South uniqueInstance textMorph contents: South uniqueInstance asString.
-	West uniqueInstance textMorph contents: West uniqueInstance asString.
+	"North changeContents.
+	East changeContents.
+	South changeContents.
+	West changeContents."
 	self windowMorph openInWorld
 ]
 
@@ -52,6 +52,21 @@ Hand class >> asTableResultsMorph [
 		  font: Font;
 		  position: 10 @ 25;
 		  overrideExtent: 200 @ 200
+]
+
+{ #category : 'converting' }
+Hand class >> asTextMorph [
+	"
+	"
+	^ self uniqueInstance asTextMorph 
+]
+
+{ #category : 'converting' }
+Hand class >> changeContents [
+	"
+	"
+
+	^ self uniqueInstance changeContents
 ]
 
 { #category : 'accessing' }
@@ -73,12 +88,16 @@ Hand class >> windowMorph [
 
 	^ WindowMorphV2 ifNil: [
 			  WindowMorphV2 := (SystemWindow labelled: 'a new Deal')
-				                   addMorph: North uniqueInstance asTextMorph;
-				                   addMorph: East uniqueInstance asTextMorph;
-				                   addMorph: South uniqueInstance asTextMorph;
-				                   addMorph: West uniqueInstance asTextMorph;
-				                   addMorph: self asTableResultsMorph;
-				                   extent: WindowExtent ]
+				                   "addMorph: North textMorph;
+				                   addMorph: East textMorph;
+				                   addMorph: South textMorph;
+				                   addMorph: West textMorph;"
+			 				 addMorph: North asTextMorph;
+				                   addMorph: East asTextMorph;
+				                   addMorph: South asTextMorph;
+				                   addMorph: West asTextMorph;
+							 addMorph: self asTableResultsMorph;extent:  WindowExtent ]
+
 ]
 
 { #category : 'accessing' }
@@ -118,6 +137,14 @@ Hand >> asTextMorph [
 		  font: Font;
 		  position: self position;
 		  overrideExtent:  self extent
+]
+
+{ #category : 'converting' }
+Hand >> changeContents [ 
+	"
+	"
+	
+	self textMorph contents: self asString 
 ]
 
 { #category : 'accessing' }
