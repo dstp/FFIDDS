@@ -37,7 +37,7 @@ Card >> asMorphText [
 	"
 	"
 
-	^ TextMorph new
+	^ TextMorphV new
 		  text: self rank;
 		  font: Font
 ]
